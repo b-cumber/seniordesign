@@ -56,10 +56,13 @@ textarea {
     padding: 0.2em 0;
 }
 
+.diagnostic {
+    float: right;
+}
 
 /* ===== Initializr Styles ==================================================
  *    Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
- *       ========================================================================== */
+ * ========================================================================== */
 
 body {
     font: 16px/26px Helvetica, Helvetica Neue, Arial;
@@ -71,26 +74,26 @@ body {
 }
 
 /* ===================
- *     ALL: Orange Theme
- *        =================== */
+ *  ALL: Color Theme
+ * =================== */
 
 .header-container {
-    border-bottom: 20px solid #e44d26;
+    border-bottom: 20px solid #B1955B;
 }
 
 .footer-container,
 .main aside {
-    border-top: 20px solid #e44d26;
+    border-top: 20px solid #B1955B;
 }
 
 .header-container,
 .footer-container,
 .main aside {
-    background: #f16529;
+    background: #DADADA;
 }
 
 .title {
-    color: white;
+    color: #725b33;
 }
 
 /* ==============
@@ -171,7 +174,6 @@ nav a:hover {
 
 
 
-
 /* ==========================================================================
  *    Media Queries
  * ========================================================================== */
@@ -228,9 +230,9 @@ nav a:hover {
  *  WIDE: Menu
  * ============ */
 
-    .title {
+    /*.title {
         float: left;
-    }
+    }*/
 
     nav {
         float: right;
