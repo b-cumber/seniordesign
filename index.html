@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app class="no-js">
+<html class="no-js">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -24,26 +24,19 @@
             <div class="main wrapper clearfix">
 
                 <article>
-                   <!-- <header>
-                        <h1>{{hello}}</h1>
-                        <input type="text" ng-model="hello"/>
-                    </header>-->
-                    <section>
+                    <section ng-app="">
                         <h2>Flight Diagnostics</h2>
-                        Altitude:
-                        <input class = "diagnostic" type="text" name="altitude" 
-                               value="0" readonly/>
+                        Altitude: {{altitude}} ft
                         <br>
-                        Temperature:
-                        <input class = "diagnostic" type="text" name="temp" 
-                               value="0" readonly/>
+                        Temperature: {{temp}} &deg; F
                         <br>
-                        GPS Coordinates:
-                        <input class = "diagnostic" type="text" name="coords" 
-                               value="0" readonly/>
+                        GPS Coordinates: {{coords}} <!--latitude, longitude -->
                         <br>
                         <div style = text-align:center>
-                        <button>Refresh</button>
+                        <button ng-click = "altitude = altitude + 1;
+                                            temp = temp + 1;
+                                            coords = coords + 1;"
+                        ng-init="altitude=0; coords=0; temp=0;">Refresh</button>
                         </div>
                     </section>
                     
@@ -55,10 +48,6 @@
                     </iframe>
                     
                 </article>
-              <!--  <aside>
-                    <h3>Aside</h3>
-		    <p>Paragraph goes here.</p>
-                </aside> -->
 
             </div> <!-- #main -->
         </div> <!-- #main-container -->

@@ -230,9 +230,9 @@ nav a:hover {
  *  WIDE: Menu
  * ============ */
 
-    /*.title {
+    .title {
         float: left;
-    }*/
+    }
 
     nav {
         float: right;
