@@ -7,15 +7,16 @@ import datetime
 import socket
 
 def attachment_handler(attachment):
-    for field in attachment.split(','):
-        if '$' in field:
-            print(field.strip())
-    
+    fields = ['Temp', 'Pres', 'Lat', 'Long', 'Alt']
+    diag_dict = {}
+    for entry, data in zip(fields, attachment):
+        diag_dict[entry] = data.strip()
+    print(diag_dict)
 
 def main():
     ########### Open IMAP connection to Gmail ##############
     M = imaplib.IMAP4_SSL("imap.gmail.com")
-    M.login("uivast1@gmail.com", "vastiscool") #replace pw w/ getpass.getpass()
+    M.login("uivast1@gmail.com", getpass.getpass()) #replace pw w/ getpass.getpass()
     M.select()
     ########### Create a query to search for new mail ###########
     form = "%d-%b-%Y"
@@ -46,7 +47,7 @@ def main():
             if part.get('Content-Disposition') == "inline":
                 continue
             attachment = part.get_payload(decode=True).decode("utf-8", "ignore")
-            attachment_handler(attachment)
+            attachment_handler(attachment.split(','))
     M.close()
     M.logout()
     
