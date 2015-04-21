@@ -9,8 +9,6 @@
         <link rel="stylesheet" href="static/css/normalize.min.css">
         <link rel="stylesheet" href="static/css/main.css">
         
-        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-        
         <title>Guided Parafoil System Dashboard</title>
     </head>
     <body>
@@ -34,10 +32,10 @@
                         {% endif %}
                         <br>
                         <div text-align:center>
-                            <img src="static/altitude_gauge.png" alt="Example">
+                            <img src="static/Altitude_gauge.png" alt="Example">
                             <br>
                             {% if alt %}
-                            Altitude: {{ alt }} m
+                            Altitude: <span id="altitude">{{ alt }}</span>m
                             {% else %}
                             Altitude: 0 ft
                             {% endif %}
@@ -83,9 +81,7 @@
             </footer>
         </div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
-
-        <script src="js/main.js"></script>
+        <script src="static/js/vendor/jquery-1.11.1.min.js"></script>
+        <script src="static/js/main.js"></script>
     </body>
 </html>

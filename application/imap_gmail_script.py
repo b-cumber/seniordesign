@@ -55,6 +55,8 @@ def attachment_handler(attachment):
             diag_dict['Altitude'] = attachment[num+9]
             if len(attachment) > 15:
                 diag_dict['Velocity'] = attachment[num+15].strip('\n')
+            # else:
+               #  diag_dict['Velocity'] = 0
     return diag_dict
 
 def search_mail(mail_handle):

@@ -106,7 +106,7 @@ class GaugeDraw(ImageDraw.ImageDraw):
         if needle_fill_color is not None:
             self.colors['needle_fill'] = needle_fill_color
 
-    def add_dial_labels(self, dial_labels = [], dial_label_font_size=12, dial_label_color=None,
+    def add_dial_labels(self, dial_labels = [], dial_label_font_size=24, dial_label_color=None,
                         dial_label_font=None):
         """Takes a dictionary and draws text at every key.
         On a dial from 0 to 360, this dictionary would print the points of the compoass:
@@ -122,7 +122,7 @@ class GaugeDraw(ImageDraw.ImageDraw):
         if dial_label_color is not None:
             self.colors['dial_label'] = dial_label_color
 
-    def add_text(self, text_list = None, text_font_size=20,
+    def add_text(self, text_list = None, text_font_size=40,
                 text_font=None, text_color=None):
         """Adds multiple lines of text as a caption.
         Usually used to display the value of the gauge.
@@ -154,7 +154,7 @@ class GaugeDraw(ImageDraw.ImageDraw):
         if text_color is not None:
             self.colors['text'] = text_color
 
-    def add_dial(self, major_ticks, minor_ticks=None, dial_format="%.1f", dial_font_size=12,
+    def add_dial(self, major_ticks, minor_ticks=None, dial_format="%.1f", dial_font_size=24,
                 dial_font=None, dial_color=None, dial_label_color=None, dial_thickness=1):
         """Configures the background dial
         major_ticks and minor_ticks are how often to add a tick mark to the dial.
@@ -162,7 +162,7 @@ class GaugeDraw(ImageDraw.ImageDraw):
         Set dial_format to None to stop labelling every major tick mark"""
 
         try:
-            self.major_tick = float(major_ticks)
+            self.major_tick = major_ticks
         except:
             raise Exception("Need to specify a number for major_ticks.")
 
@@ -349,14 +349,14 @@ class GaugeDraw(ImageDraw.ImageDraw):
     def draw_needle(self):
         """Draws the needle"""
         if self.gauge_value is not None:
+            gauge_val = float(self.gauge_value)
+            if gauge_val < self.min_value:
+                gauge_val = self.min_value
 
-            if self.gauge_value < self.min_value:
-                self.gauge_value = self.min_value
+            if gauge_val > self.max_value:
+                gauge_val = self.max_value
 
-            if self.gauge_value > self.max_value:
-                self.gauge_value = self.max_value
-
-            angle = math.radians(self.min_angle + (self.gauge_value - self.min_value) *
+            angle = math.radians(self.min_angle + (gauge_val - self.min_value) *
                                  (self.max_angle - self.min_angle) / (self.max_value - self.min_value)
                                  + self.offset_angle)
 
