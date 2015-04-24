@@ -12,7 +12,7 @@ def index():
                             alt = data['Altitude'],
                             latitude = data['Latitude'],
                             longitude = data['Longitude'],
-                            satellites = data['Satellites'],
+                            sats = data['Satellites'],
                             )
                             
 @app.route('/update')

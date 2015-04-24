@@ -1,87 +1,84 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link rel="stylesheet" href="static/css/normalize.min.css">
+        
         <link rel="stylesheet" href="static/css/main.css">
         
         <title>Guided Parafoil System Dashboard</title>
     </head>
     <body>
 
-        <div class="header-container">
-            <header class="wrapper clearfix">
-                <h1 style = text-align:center class="title">GPS Dashboard</h1>
-            </header>
-        </div>
+        <header>
+            <img id = "nasalogo" src="static/nasa-logo.svg" alt="">
+            <h1 id = "title">GPS Dashboard</h1>
+            <img id="vandallogo" src="static/vandal_logo.jpg" alt="">
+        </header>
 
-        <div class="main-container">
-            <div class="main wrapper clearfix">
-
-                <article>
-                    <section>
-                        <h2>Flight Diagnostics</h2>
-                        {% if time %}
-                        Time: {{ time }}
-                        {% else %}
-                        Time: N/A
-                        {% endif %}
-                        <br>
-                        <div text-align:center>
-                            <img src="static/Altitude_gauge.png" alt="Example">
-                            <br>
-                            {% if alt %}
-                            Altitude: <span id="altitude">{{ alt }}</span>m
-                            {% else %}
-                            Altitude: 0 ft
-                            {% endif %}
-                            <br>
-                        </div>
-                        {% if temp %}
-                        Temperature: {{ temp }} &deg; F
-                        {% else %}
-                        Temperature: 0 &deg; F
-                        {% endif %}
-                        <br>
-                        {% if latitude and longitude %}
-                        GPS Coordinates: {{ latitude }}, {{ longitude }} 
-                        {% else %}
-                        GPS Coordinates: N/A
-                        {% endif %}
-                        <br>
-                        
-                    </section>
-                    
-                    <br>
-                    <iframe width=100% height=100% frameborder="0" style="border:0" 
-                    {% if latitude and longitude %}
-                    src="https://www.google.com/maps/embed/v1/place?&q=
-                    {{ latitude }}%2C%20{{ longitude }}
-                    &key=AIzaSyAlKWprO3ovys6MzjsbMABBPZbQ5i6C_lg">
-                    <!-- This probably wont work -->
+        <div id="main-container">
+            {% if time %}
+            <h3>Time Last Received: <span id="time">{{ time }} </span> PST</h3>
+            {% else %}
+            <h3>Time: N/A</h3> 
+            {% endif %}
+            <!-- End of Time html -->
+            {% if sats %}
+            <h4>Number of Satellites: {{ sats }}</h4>
+            {% else %}
+            <h4>Number of Satellites: N/A</h4>
+            {% endif %}
+            <!-- End of Satellites html -->
+            <div id="gauges">
+                <div id="altitude">
+                    {% if alt %}
+                    <h4>Altitude: <span id="altitude-val">{{ alt }}</span> m</h4>
                     {% else %}
-                    src="https://www.google.com/maps/embed/v1/search?
-                    q=Moscow%20Idaho
-                    &key=AIzaSyAlKWprO3ovys6MzjsbMABBPZbQ5i6C_lg">
+                    <h4>Altitude: 0 ft</h4>
                     {% endif %}
-                    </iframe>
-                    
-                </article>
+                </div>
+                <div id="temperature">
+                    {% if temp %}
+                    <h4>Temperature: {{ temp }} &deg; F</h4>
+                    {% else %}
+                    <h4>Temperature: 0 &deg; F</h4>
+                    {% endif %}
+                </div>    
+            </div>
+            
+            {% if latitude and longitude %}
+            <h3>GPS Coordinates: {{ latitude }}, {{ longitude }}</h3> 
+            {% else %}
+            <h3>GPS Coordinates: N/A</h3>
+            {% endif %}
+            
+            {% if latitude and longitude %}
+            <iframe width=100% height=100% frameborder="0" style="border:0" 
+            src="https://www.google.com/maps/embed/v1/place?&q=
+            {{ latitude }}%2C%20{{ longitude }}
+            &key=AIzaSyAlKWprO3ovys6MzjsbMABBPZbQ5i6C_lg">
+            {% else %}
+            <iframe width=100% height=width frameborder="0" style="border:0" 
+            src="https://www.google.com/maps/embed/v1/search?
+            q=Moscow%20Idaho
+            &key=AIzaSyAlKWprO3ovys6MzjsbMABBPZbQ5i6C_lg">
+            {% endif %}
+            </iframe>
+        
+        </div> <!--main-container-->
 
-            </div> <!-- #main -->
-        </div> <!-- #main-container -->
-
-        <div class="footer-container">
-            <footer class="wrapper">
+        <div>
+            <footer>
                 <h3></h3>
             </footer>
         </div>
 
         <script src="static/js/vendor/jquery-1.11.1.min.js"></script>
+        <script src="http://wzrd.in/standalone/d3-gauge"></script>
+        <script src="http://wzrd.in/standalone/xtend"></script>
+        <script src="static/js/d3gauge.js"></script>
         <script src="static/js/main.js"></script>
     </body>
 </html>
