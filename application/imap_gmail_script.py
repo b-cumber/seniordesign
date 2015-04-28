@@ -10,10 +10,16 @@ from application.gen_gauge import gauge_maker
 
 def format_time(time):
     if time:
-        hours = (int(time[0:2])-7)%24
-        mins = int(time[2:4])
-        secs = int(float(time[4:]))
-        time = str(hours) + ':' + str(mins) + ':' + str(secs)
+        hours = str((int(time[0:2])-7)%24)
+        if len(hours) < 2:
+            hours = '0'+hours
+        mins = time[2:4]
+        if len(mins) < 2:
+            hours = '0'+hours
+        secs = time[4:6]
+        if len(secs) < 2:
+            hours = '0'+hours
+        time = hours + ':' + mins + ':' + secs
     return time
         
 def format_longitude(longitude, card):
@@ -82,6 +88,7 @@ def fetch_mail(mail_handle, msgId):
         print("Error fetching mail.")
     emailBody = messageParts[0][1]
     mail = email.message_from_bytes(emailBody)
+    diagnostics = []
     for part in mail.walk():
         if part.is_multipart():
             continue
@@ -93,16 +100,21 @@ def fetch_mail(mail_handle, msgId):
         diagnostics = attachment_handler(attachment.split(','))
     return diagnostics
 
-def main():
+    
+def main(msg=0):
     ########### Open IMAP connection to Gmail ##############
     M = imaplib.IMAP4_SSL("imap.gmail.com")
-    M.login("uivast1@gmail.com", "vastiscool") #replace pw w/ getpass.getpass()
+    M.login("uivast1@gmail.com", "vastiscool") 
     M.select()
     data = search_mail(M)
-    diag = fetch_mail(M, data[0].split()[-1])
+    print(len(data[0]))
+    if len(data[0]) < msg:
+        msgID = data[0].split()[-1]
+    else:
+        msgID = data[0].split()[msg]
+    diag = fetch_mail(M, msgID)
     M.close()
     M.logout()
-    gauge_maker(diag)
     return diag
     
 if __name__ == '__main__':

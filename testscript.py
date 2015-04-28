@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from app.imap_gmail_script import *
+from application.imap_gmail_script import *
 
 def test():
     file = open('GPSFILE.TXT')

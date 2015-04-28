@@ -52,7 +52,16 @@ createGauge({
   clazz: 'simple',
   label: '',
   max: 20000,
-  size: 220
+  size: 220,
+  zones: [{
+    clazz: 'yellow-zone',
+    from: 0,
+    to: 0
+  }, {
+    clazz: 'red-zone',
+    from: 0,
+    to: 0
+  }]
 }, $('#altitude'));
 
 createGauge({
@@ -60,3 +69,19 @@ createGauge({
   label: '',
   size: 220
 }, $('#temperature'));
+
+createGauge({
+  clazz: 'simple',
+  label: '',
+  max: 20000,
+  size: 220,
+  zones: [{
+    clazz: 'yellow-zone',
+    from: 0,
+    to: 0
+  }, {
+    clazz: 'red-zone',
+    from: 0,
+    to: 0
+  }]
+}, $('#pressure'));
