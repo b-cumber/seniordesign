@@ -5,7 +5,7 @@ import email
 import os
 import datetime
 import socket
-from application.gen_gauge import gauge_maker
+# from application.gen_gauge import gauge_maker
 
 
 def format_time(time):
