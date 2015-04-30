@@ -101,18 +101,15 @@ def fetch_mail(mail_handle, msgId):
     return diagnostics
 
     
-def main(msg=0):
+def main():
     ########### Open IMAP connection to Gmail ##############
     M = imaplib.IMAP4_SSL("imap.gmail.com")
     M.login("uivast1@gmail.com", "vastiscool") 
     M.select()
     data = search_mail(M)
-    print(len(data[0]))
-    if len(data[0]) < msg:
-        msgID = data[0].split()[-1]
-    else:
-        msgID = data[0].split()[msg]
+    msgID = data[0].split()[-1]
     diag = fetch_mail(M, msgID)
+    diag['msg'] = str(int(msgID))
     M.close()
     M.logout()
     return diag

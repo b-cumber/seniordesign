@@ -18,8 +18,8 @@
             <h1 id = "title">GPS Dashboard</h1>
             <img id="vandallogo" src="static/vandal_logo.jpg" alt="">
         </header>
-
         <div id="main-container">
+            <input type="hidden" name="msgnum" id="msgnum" value="-1">
             {% if time %}
             <h3>Time Last Received: <span id="time">{{ time }} </span> PST</h3>
             {% else %}

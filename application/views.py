@@ -10,8 +10,8 @@ def index():
     # return render_template('index.html', time = data['Time'], alt = data['Altitude'], latitude = data['Latitude'], longitude = data['Longitude'], sats = data['Satellites'], )
     return render_template('index.html')
                             
-@app.route('/update/<int:msg>')
-def update(msg):
-    return jsonify(main(msg=msg))
+@app.route('/update')
+def update():
+    return jsonify(main())
     
                             
