@@ -70,11 +70,11 @@ def search_mail(mail_handle):
     form = "%d-%b-%Y"
     today = datetime.datetime.today()
     s = today.strftime(form)
-    query = "(FROM \"sbdservice\" SINCE \"" + s + "\")"
+    query = "(FROM \"guidedparafoilsystem\" SINCE \"" + s + "\")"
     #print(query)
     # typ, data = mail_handle.search(None, query)  
     
-    typ, data = mail_handle.search(None, '(FROM "sbdservice" SINCE "4-April-2015")')  
+    typ, data = mail_handle.search(None, '(FROM "guidedparafoilsystem" SINCE "30-April-2015")')  
     # typ, data = M.search(None, '(NOT SEEN)') # == to new messages
     
     if typ != 'OK':                                 #typ is for error checking
@@ -104,9 +104,12 @@ def fetch_mail(mail_handle, msgId):
 def main():
     ########### Open IMAP connection to Gmail ##############
     M = imaplib.IMAP4_SSL("imap.gmail.com")
-    M.login("uivast1@gmail.com", "vastiscool") 
+    M.login("guidedparafoilsystem@gmail.com", "SeniorDesign2015") 
     M.select()
+    msgID = 0
     data = search_mail(M)
+    if not data[0]:
+        return {}
     msgID = data[0].split()[-1]
     diag = fetch_mail(M, msgID)
     diag['msg'] = str(int(msgID))
@@ -115,4 +118,4 @@ def main():
     return diag
     
 if __name__ == '__main__':
-    main()
+    main()                                                    
