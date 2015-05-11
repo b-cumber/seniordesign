@@ -22,8 +22,8 @@ from email.mime.multipart import MIMEMultipart
 COMMASPACE = ', '
 
 def compose_email(file):
-    sender = 'guidedparafoilsystem@gmail.com'
-    gmail_password = 'SeniorDesign2015'
+    sender = 'uivast1@gmail.com'
+    gmail_password = 'vastiscool'
     recipients = ['guidedparafoilsystem@gmail.com']
     
     # Create the enclosing (outer) message
@@ -36,8 +36,7 @@ def compose_email(file):
     # List of attachments
 
     # Add the attachments to the message
-    # for file in attachments:
-    src="attachments/"
+    src="attachments_two/"
     full_file_name = os.path.join(src, file)
     try:
         with open(full_file_name, 'rb') as fp:
@@ -67,7 +66,7 @@ def compose_email(file):
         raise
 
 def main():
-    attachments = sorted(os.listdir('attachments'))
+    attachments = sorted(os.listdir('attachments_two'))
     for file in attachments:
         print(file)
         compose_email(file)

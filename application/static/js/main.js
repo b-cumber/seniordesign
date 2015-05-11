@@ -29,6 +29,17 @@ function get_data() {
             $("#long-val").text(data['Longitude']);
             addLatLng(data['Latitude'], data['Longitude']);
           }
+          if(data["Pressure"]){
+            $("#pres-val").text(data["Pressure"]);
+            gauges[2].write(data["Pressure"]);
+          }
+          if(data["Temperature"]){
+            $("#temp-val").text(data["Temperature"]);
+            gauges[1].write(data["Temperature"]);
+          }
+          if(data["cutdown"] == "cutdown"){
+            $("#cd-stat").text("Cutdown!");
+          }
         }
     }
   });

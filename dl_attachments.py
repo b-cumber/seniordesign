@@ -10,9 +10,9 @@ import sys
 
 detach_dir = '.'
 
-if 'attachments' not in os.listdir(detach_dir):
+if 'attachments_two' not in os.listdir(detach_dir):
 
-    os.mkdir('attachments')
+    os.mkdir('attachments_two')
 
  
 
@@ -38,7 +38,7 @@ try:
 
     imapSession.select('[Gmail]/All Mail')
 
-    typ, data = imapSession.search(None, '(FROM "sbdservice" SINCE "4-April-2015")')
+    typ, data = imapSession.search(None, '(FROM "sbdservice" SINCE "2-May-2015")')
 
     if typ != 'OK':
 
@@ -86,7 +86,7 @@ try:
 
             if bool(fileName):
 
-                filePath = os.path.join(detach_dir, 'attachments', fileName)
+                filePath = os.path.join(detach_dir, 'attachments_two', fileName)
 
                 if not os.path.isfile(filePath) :
 

@@ -107,3 +107,11 @@ header {
 .d3-gauge.simple .red-zone {
   fill :  #DC3912
 }
+
+.d3-gauge.simple .blue-zone {
+  fill: #3E97E0
+}
+
+.d3-gauge.simple .lightblue-zone {
+  fill: #00CBFF
+}

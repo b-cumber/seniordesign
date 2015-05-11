@@ -67,13 +67,24 @@ createGauge({
 createGauge({
   clazz: 'simple',
   label: '',
-  size: 220
+  min: -60,
+  max: 30,
+  size: 220,
+  zones: [{
+    clazz: 'blue-zone',
+    from: 0,
+    to: .15
+  }, {
+    clazz: 'lightblue-zone',
+    from: .15,
+    to: .25
+  }]
 }, $('#temperature'));
 
 createGauge({
   clazz: 'simple',
   label: '',
-  max: 20000,
+  max: 1050,
   size: 220,
   zones: [{
     clazz: 'yellow-zone',

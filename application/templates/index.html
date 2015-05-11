@@ -23,15 +23,16 @@
             {% if time %}
             <h3>Time Last Received: <span id="time">{{ time }} </span> PST</h3>
             {% else %}
-            <h3>Time: <span id="time">N/A </span></h3>
+            <h3>Time Last Received: <span id="time">N/A </span></h3>
             {% endif %}
-            <!-- End of Time html -->
+            <!-- End of Time -->
+            <h4>Cutdown Status: <span id="cd-stat">Not Cutdown</span></h4>
             {% if sats %}
             <h4>Number of Satellites: <span id="sats-val">{{ sats }}</span></h4>
             {% else %}
             <h4>Number of Satellites: <span id="sats-val">{{ sats }}</span></h4>
             {% endif %}
-            <!-- End of Satellites html -->
+            <!-- End of Satellites -->
             <div id="gauges">
                 <div id="altitude">
                     {% if alt %}
@@ -42,16 +43,16 @@
                 </div>
                 <div id="temperature">
                     {% if temp %}
-                    <h4>Temperature: <span id="temp-val">{{ temp }} </span>&deg; F</h4>
+                    <h4>Temperature: <span id="temp-val">{{ temp }} </span>&deg; C</h4>
                     {% else %}
-                    <h4>Temperature: <span id="temp-val">{{ temp }} </span>&deg; F</h4>
+                    <h4>Temperature: <span id="temp-val">{{ temp }} </span>&deg; C</h4>
                     {% endif %}
                 </div>    
                 <div id="pressure">
                     {% if temp %}
-                    <h4>Pressure: <span id="pres-val">{{ pressure }} </span></h4>
+                    <h4>Pressure: <span id="pres-val">{{ pressure }} </span> mbars</h4>
                     {% else %}
-                    <h4>Pressure: <span id="pres-val">{{ pressure }} </span></h4>
+                    <h4>Pressure: <span id="pres-val">{{ pressure }} </span> mbars</h4>
                     {% endif %}
                 </div>    
             </div>

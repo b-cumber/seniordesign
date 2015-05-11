@@ -3,9 +3,9 @@ import getpass
 import imaplib
 import email
 import os
-import datetime
+from datetime import datetime
+import pytz
 import socket
-# from application.gen_gauge import gauge_maker
 
 
 def format_time(time):
@@ -48,34 +48,37 @@ def format_latitude(latitude, card):
     
 def attachment_handler(attachment):
     diag_dict = {}
-    for num, entry in enumerate(attachment):
+    extra_data = attachment.split('/')
+    gps_sentence = extra_data[0].split(',')
+    diag_dict['Pressure'] = extra_data[2]
+    diag_dict['Temperature'] = extra_data[1]
+    if 'not' in extra_data[3]:
+        diag_dict["cutdown"] = extra_data[3]
+    else:
+        diag_dict["cutdown"] = extra_data[3]
+    for num, entry in enumerate(gps_sentence):
         if entry != '$GPGGA':# This approach works as long as we use this format
             continue
         else:
-            diag_dict['Time'] = format_time(attachment[num+1])
-            diag_dict['Latitude'] = format_latitude(attachment[num+2],
-                                                    attachment[num+3])
-            diag_dict['Longitude'] = format_longitude(attachment[num+4], 
-                                                      attachment[num+5])
-            diag_dict['Satellites'] = attachment[num+7]
-            diag_dict['Altitude'] = attachment[num+9]
-            if len(attachment) > 15:
-                diag_dict['Velocity'] = attachment[num+15].strip('\n')
-            # else:
-               #  diag_dict['Velocity'] = 0
+            diag_dict['Time'] = format_time(gps_sentence[num+1])
+            diag_dict['Latitude'] = format_latitude(gps_sentence[num+2],
+                                                    gps_sentence[num+3])
+            diag_dict['Longitude'] = format_longitude(gps_sentence[num+4], 
+                                                      gps_sentence[num+5])
+            diag_dict['Satellites'] = gps_sentence[num+7]
+            diag_dict['Altitude'] = gps_sentence[num+9]
+            
     return diag_dict
 
 def search_mail(mail_handle):
     ########### Create a query to search for new mail ###########
     form = "%d-%b-%Y"
-    today = datetime.datetime.today()
-    s = today.strftime(form)
-    query = "(FROM \"guidedparafoilsystem\" SINCE \"" + s + "\")"
-    #print(query)
-    # typ, data = mail_handle.search(None, query)  
-    
-    typ, data = mail_handle.search(None, '(FROM "guidedparafoilsystem" SINCE "30-April-2015")')  
-    # typ, data = M.search(None, '(NOT SEEN)') # == to new messages
+    date = datetime.now(tz=pytz.utc)
+    date = date.astimezone(pytz.timezone('US/Pacific'))
+    s = date.strftime(form)
+    query = "(FROM \"uivast1\" SINCE \"" + s + "\")"
+    # print(query)
+    typ, data = mail_handle.search(None, query)  
     
     if typ != 'OK':                                 #typ is for error checking
        print("Error searching mail.")               #data is a tuple of msg num
@@ -97,14 +100,14 @@ def fetch_mail(mail_handle, msgId):
         if part.get('Content-Disposition') == "inline":
             continue
         attachment = part.get_payload(decode=True).decode("utf-8", "ignore")
-        diagnostics = attachment_handler(attachment.split(','))
+        diagnostics = attachment_handler(attachment)
     return diagnostics
 
     
 def main():
     ########### Open IMAP connection to Gmail ##############
     M = imaplib.IMAP4_SSL("imap.gmail.com")
-    M.login("guidedparafoilsystem@gmail.com", "SeniorDesign2015") 
+    M.login("Guidedparafoilsystem@gmail.com", "SeniorDesign2015") 
     M.select()
     msgID = 0
     data = search_mail(M)
@@ -116,6 +119,3 @@ def main():
     M.close()
     M.logout()
     return diag
-    
-if __name__ == '__main__':
-    main()                                                    
